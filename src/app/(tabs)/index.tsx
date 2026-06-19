@@ -1,54 +1,12 @@
 import {
-  Text, View, StyleSheet, ScrollView, TextInput, RefreshControl, TouchableOpacity, FlatList, Image,
-  ListRenderItem, TouchableWithoutFeedback, Animated
+  Text, View, StyleSheet, ScrollView, FlatList, Image, ListRenderItem, TouchableWithoutFeedback
 } from 'react-native'
-import { useState } from 'react'
 import Loading from '@/src/components/Loading'
 import NetworkError from '@/src/components/NetworkError'
 import useFetchData from '@/src/hooks/useReduceFetchData'
 import { Link } from 'expo-router'
-
-interface Category {
-  id: number
-  name: string
-}
-
-interface User {
-  id: number
-  username: string
-  nickname: string
-  avatar: string
-  company: string
-}
-
-interface CourseItem {
-  id: number
-  name: string
-  image: string
-  categoryId: number
-  chaptersCount: number
-  introductory: number
-  likeCount: number
-  recommended: number
-  createdAt: string
-  updatedAt: string
-  userId: number
-  category: Category
-  user: User
-}
-
-interface Pagination {
-  limit: number
-  page: number
-  total: number
-}
-
-interface SearchResponse {
-  recommendedCourses: CourseItem[],
-  likesCourses: CourseItem[],
-  introductoryCourses: CourseItem[],
-  pagination: Pagination
-}
+import {CourseItem} from "@/src/types";
+import {SearchResponse} from "@/src/types";
 
 export default function Index() {
   const { data, loading, error, onReload } = useFetchData<SearchResponse>('/')

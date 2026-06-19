@@ -1,7 +1,7 @@
 // app/_layout.tsx
 import { Stack } from 'expo-router'
 import { Platform } from 'react-native'
-import CustomHeader from '../components/CustomHeader'
+import CustomHeader from '@/src/components/CustomHeader'
 
 export default function RootLayout() {
   return (

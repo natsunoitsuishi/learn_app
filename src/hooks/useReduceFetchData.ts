@@ -1,28 +1,7 @@
 import { useEffect, useReducer, useCallback } from 'react'
 import { get } from '@/src/utils/request'
-
-interface FetchState<T> {
-  data: T | null
-  loading: boolean
-  error: boolean
-}
-
-interface ApiWrapper<T> {
-  status: boolean
-  message: string
-  data: T
-}
-
-const FETCH_SUCCESS = 'FETCH_SUCCESS' as const
-const FETCH_ERROR = 'FETCH_ERROR' as const
-const SET_DATA = 'SET_DATA' as const
-const RELOAD_START = 'RELOAD_START' as const
-
-type FetchAction<T> =
-  | { type: typeof RELOAD_START }
-  | { type: typeof FETCH_SUCCESS; payload: T }
-  | { type: typeof FETCH_ERROR }
-  | { type: typeof SET_DATA; payload: T }
+import {ApiWrapper, FetchState} from "@/src/hooks/types";
+import {FETCH_ERROR, FETCH_SUCCESS, FetchAction, RELOAD_START, SET_DATA} from "@/src/hooks/types";
 
 function reducer<T>(state: FetchState<T>, action: FetchAction<T>): FetchState<T> {
   switch (action.type) {
