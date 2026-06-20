@@ -2,6 +2,13 @@
 import { Stack } from 'expo-router'
 import CustomHeader from '@/src/components/CustomHeader'
 
+const customOption = {
+    headerTitleStyle: {
+        fontWeight: 'bold' as const,
+    },
+    headerTitleAlign: 'center' as const,
+} as const
+
 export default function RootLayout() {
   return (
     <Stack screenOptions={{headerShown: true}}>
@@ -16,26 +23,16 @@ export default function RootLayout() {
             }}
         />
 
-        <Stack.Screen name="articles/index"
-            options={{
-                title: '通知',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
-                headerTitleAlign: 'center',
-            }}
-        />
+        <Stack.Screen name="articles/index" options={{ ...customOption, title: '通知' }} />
+        <Stack.Screen name="articles/[id]"  options={{ ...customOption, title: '通知详情' }} />
 
-        <Stack.Screen name="articles/[id]"
-            options={{
-                title: '通知详情',
-                headerTitleStyle: {
-                    fontWeight: 'bold',
-                },
-                headerTitleAlign: 'center',
-            }}
+        <Stack.Screen
+            name="setting/[uri]"
+            options={({ route }) => (
+                { ...customOption, title: (route.params as { title?: string })?.title }
+            )}
         />
-
+        <Stack.Screen name="setting/index"  options={{ ...customOption, title: '设置' }} />
 
     </Stack>
   )

@@ -1,4 +1,4 @@
-// app/teacher/[id].tsx
+
 import { View, Text, StyleSheet, Button, Platform } from 'react-native'
 import { useLocalSearchParams, router, Stack } from 'expo-router'
 

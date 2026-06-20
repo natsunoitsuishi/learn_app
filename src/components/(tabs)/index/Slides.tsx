@@ -18,7 +18,7 @@ export default function Slides ({course}: coursesType) {
                     index === course.length - 1 ? styles.last : null
                 ]}
             >
-                <Link asChild href={{pathname: '/courses/[id]', params: {id: item.id}}}>
+                <Link asChild href={{pathname: '/teachers/[id]', params: {id: item.id}}}>
                     <TouchableWithoutFeedback>
                         <Image source={{
                             uri: item.image?.replace(

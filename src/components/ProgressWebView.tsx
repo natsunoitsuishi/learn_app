@@ -1,5 +1,5 @@
-import {JSX, useState} from "react";
-import {Dimensions, View} from "react-native";
+import {JSX} from "react";
+import {View} from "react-native";
 import {StyleSheet} from "react-native";
 import WebView from "react-native-webview";
 import {IOSWebViewProps, AndroidWebViewProps, WindowsWebViewProps} from "react-native-webview/lib/WebViewTypes";

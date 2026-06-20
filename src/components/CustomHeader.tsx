@@ -12,6 +12,9 @@ interface CustomHeaderProps {
     rightComponent?: React.ReactNode
 }
 
+const handleSettingsPress = () => {
+
+}
 export default function CustomHeader({
                                          title = '首页',
                                          showSearch = false,
@@ -69,6 +72,13 @@ export default function CustomHeader({
                                 </TouchableOpacity>
                             )}
                             {rightComponent}
+                            <Link href="/setting" asChild>
+                                <TouchableOpacity
+                                    style={styles.iconBtn}
+                                >
+                                    <Ionicons name="ellipsis-vertical" size={24} color="#667eea" />
+                                </TouchableOpacity>
+                            </Link>
                     </View>
                 )}
             </View>

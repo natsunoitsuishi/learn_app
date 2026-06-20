@@ -13,7 +13,7 @@ export default function CoursesList ({course, title}: coursesType) {
 
     const renderItem: ListRenderItem<CourseItem> = ({ item, index }) => {
         return (
-        <Link asChild href={{ pathname: '/courses/[id]', params: { id: item.id } }}>
+        <Link asChild href={{ pathname: '/teachers/[id]', params: { id: item.id } }}>
             <TouchableWithoutFeedback>
                 <View
                     style={[
