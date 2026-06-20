@@ -1,3 +1,5 @@
+import screenContainerWeb from "react-native-screens/src/components/ScreenContainer.web";
+
 interface Category {
     id: number
     name: string
@@ -37,5 +39,16 @@ export interface Response {
     recommendedCourses: CourseItem[],
     likesCourses: CourseItem[],
     introductoryCourses: CourseItem[],
+    pagination: Pagination
+}
+
+export interface ArticleItem {
+    id: number,
+    createdAt: string,
+    updatedAt: string,
+    title: string
+}
+export interface ArticleResponse {
+    articles: ArticleItem[],
     pagination: Pagination
 }

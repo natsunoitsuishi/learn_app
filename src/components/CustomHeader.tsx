@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-nativ
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Ionicons } from '@expo/vector-icons'
 import React, { useState } from 'react'
+import {Link} from "expo-router";
 
 interface CustomHeaderProps {
     title?: string
@@ -23,15 +24,16 @@ export default function CustomHeader({
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
-                {/* 左侧：返回按钮或标题 */}
-                <View style={styles.left}>
 
+                <Link href="/articles" asChild>
                     <TouchableOpacity style={styles.iconBtn}>
-                        <Ionicons name="notifications-outline" size={24} color="#667eea" />
-                        <View style={styles.badge} />
+                        <View style={styles.left}>
+                                <Ionicons name="notifications-outline" size={24} color="#667eea" />
+                                <View style={styles.badge} />
+                        </View>
                     </TouchableOpacity>
+                </Link>
 
-                </View>
                 {!isSearching && (
                         <View style={styles.logoContainer}>
                             <Ionicons name="book-outline" size={28} color="#667eea" />
