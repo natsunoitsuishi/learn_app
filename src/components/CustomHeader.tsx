@@ -24,7 +24,6 @@ export default function CustomHeader({
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
-
                 <Link href="/articles" asChild>
                     <TouchableOpacity style={styles.iconBtn}>
                         <View style={styles.left}>

@@ -11,7 +11,7 @@ import useFetchData from "@/src/hooks/useReduceFetchData";
 import Loading from "@/src/components/Loading";
 import NetworkError from "@/src/components/NetworkError";
 import {ArticleItem, ArticleResponse} from "@/src/types";
-import {Link} from "expo-router";
+import {Link, Stack} from "expo-router";
 
 export default function ArticlesIndex() {
     const { data, loading, error, refresh, onReload, onRefresh, setData } =
@@ -29,19 +29,30 @@ export default function ArticlesIndex() {
     
     const renderItem: ListRenderItem<ArticleItem> = ({ item }) => {
         return (
-            <Link asChild href={{ pathname: '/articles/[id]', params: {id: item.id} }}>
-                <TouchableWithoutFeedback>
-                    <View style={styles.item}>
-                        <Image />
-                        <View style={styles.titleWrapper}>
-                            <Text style={styles.title} numberOfLines={2}>
-                                {item.title}
-                            </Text>
-                            <Text style={styles.createdAt}>{item.createdAt}</Text>
+            <>
+                <Stack.Screen
+                    options={{
+                        title: '通知',
+                        headerTitleStyle: {
+                            fontWeight: 'bold',
+                        },
+                        headerTitleAlign: 'center',
+                    }}
+                />
+                <Link asChild href={{ pathname: '/articles/[id]', params: {id: item.id} }}>
+                    <TouchableWithoutFeedback>
+                        <View style={styles.item}>
+                            <Image />
+                            <View style={styles.titleWrapper}>
+                                <Text style={styles.title} numberOfLines={2}>
+                                    {item.title}
+                                </Text>
+                                <Text style={styles.createdAt}>{item.createdAt}</Text>
+                            </View>
                         </View>
-                    </View>
-                </TouchableWithoutFeedback>
-            </Link>
+                    </TouchableWithoutFeedback>
+                </Link>
+            </>
         )
     }
 
@@ -67,10 +78,8 @@ export default function ArticlesIndex() {
 
 const styles = StyleSheet.create({
     container: {
-        
     },
     contentContainerStyle: {
-        
     },
     image: {
         height: 70,
