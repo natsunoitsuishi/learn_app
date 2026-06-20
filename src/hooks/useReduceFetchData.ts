@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useCallback } from 'react'
+import {useEffect, useReducer, useCallback, useState} from 'react'
 import { get } from '@/src/utils/request'
 import {ApiWrapper, FetchState} from "@/src/hooks/types";
 import {FETCH_ERROR, FETCH_SUCCESS, FetchAction, RELOAD_START, SET_DATA} from "@/src/hooks/types";
@@ -59,6 +59,7 @@ const useReduceFetchData = <
   }
 
   const [state, dispatch] = useReducer(reducer<T>, initialState)
+  const [refresh, setRefresh] = useState<boolean>(false)
 
   const fetchData = useCallback(async () => {
     try {
@@ -68,6 +69,13 @@ const useReduceFetchData = <
       dispatch({ type: FETCH_ERROR })
     }
   }, [url, params])
+
+  const onRefresh = async () => {
+    setRefresh(true)
+    await fetchData()
+
+    setRefresh(false)
+  }
 
   const onReload = async () => {
     dispatch({ type: RELOAD_START })
@@ -84,7 +92,9 @@ const useReduceFetchData = <
 
   return {
     ...state,
+    refresh,
     onReload,
+    onRefresh,
     setData,
   }
 }

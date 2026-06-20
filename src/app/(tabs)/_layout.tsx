@@ -18,7 +18,6 @@ export default function TabsLayout() {
                 },
             }}
         >
-            {/* 第一个 Tab：首页（对应 (tabs)/index.tsx 你的课程搜索页） */}
             <Tabs.Screen
                 name="index"
                 options={{
@@ -33,7 +32,7 @@ export default function TabsLayout() {
                 options={{
                     title: '视频课程',
                     tabBarIcon: ({ color, focused }) => (
-                        <Ionicons name={focused ? 'person' : 'person-outline'} size={22} color={color} />
+                        <Ionicons name={focused ? 'videocam' : 'videocam-outline'}  size={22} color={color} />
                     ),
                 }}
             />
