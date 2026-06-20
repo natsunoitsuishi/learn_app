@@ -33,7 +33,7 @@ interface Pagination {
     total: number
 }
 
-export interface SearchResponse {
+export interface Response {
     recommendedCourses: CourseItem[],
     likesCourses: CourseItem[],
     introductoryCourses: CourseItem[],
