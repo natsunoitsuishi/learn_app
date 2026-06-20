@@ -25,8 +25,8 @@ export default function Index() {
     <>
       <ScrollView style={styles.container}>
         <Slides course={recommendedCourses} />
-        <CoursesList course={likesCourses} title='喜欢课程' />
-        <CoursesList course={introductoryCourses} title='推荐课程' />
+        <CoursesList course={likesCourses} title='人气视频课程' />
+        <CoursesList course={introductoryCourses} title='入门推荐课程' />
       </ScrollView>
     </>
   )

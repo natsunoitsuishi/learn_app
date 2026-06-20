@@ -22,12 +22,22 @@ export default function TabsLayout() {
             <Tabs.Screen
                 name="index"
                 options={{
-                    title: '首页',
+                    title: '发现',
                     tabBarIcon: ({ color, focused }) => (
                         <Ionicons name={focused ? 'home' : 'home-outline'} size={22} color={color} />
                     ),
                 }}
             />
+            <Tabs.Screen
+                name="video"
+                options={{
+                    title: '视频课程',
+                    tabBarIcon: ({ color, focused }) => (
+                        <Ionicons name={focused ? 'person' : 'person-outline'} size={22} color={color} />
+                    ),
+                }}
+            />
+
             <Tabs.Screen
                 name="mine"
                 options={{
