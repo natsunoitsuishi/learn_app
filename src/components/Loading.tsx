@@ -4,7 +4,6 @@ export default function Loading() {
   return <ActivityIndicator size="small" color="1f99b0" style={styles.loading} />
 }
 
-// ========== 仅修改下方样式 ==========
 const styles = StyleSheet.create({
   loading: {
     top: 0,
