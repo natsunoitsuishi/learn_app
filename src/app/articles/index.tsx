@@ -13,6 +13,8 @@ import NetworkError from "@/src/components/NetworkError";
 import {ArticleItem, ArticleResponse} from "@/src/types";
 import {Link, Stack} from "expo-router";
 import NoData from "@/src/components/NoData";
+import { get } from "@/src/utils/request";
+import { useState } from "react";
 
 export default function ArticlesIndex() {
     const { data, loading, error, refresh, onReload, onRefresh, setData } =
@@ -20,6 +22,8 @@ export default function ArticlesIndex() {
 
     const articles = data?.articles ?? []
     // const articles: ArrayLike<ArticleItem> | null | undefined = []
+
+    const [page, setPage] = useState(1);
 
     if (loading) {
         return <Loading />
@@ -59,6 +63,20 @@ export default function ArticlesIndex() {
     }
 
     const renderSeparator = () => <View style={styles.separator} />
+
+    const onEndReached = async () => {
+        const nextPage = page + 1;
+        setPage(nextPage);
+        const { data } = await get('/articles', {page: nextPage})
+
+        setData((prevData) => {
+            if (!prevData) return data
+            return {
+                articles: [...prevData.articles, ...data.articles],
+                pagination: data.pagination,
+            }
+        })
+    }
     return (
         <FlatList 
             style={styles.container}
@@ -75,6 +93,8 @@ export default function ArticlesIndex() {
                 tintColor={'#1f99b0'}
             />
             }
+            onEndReached={onEndReached}
+            onEndReachedThreshold={0.1}
         />
     )
 }

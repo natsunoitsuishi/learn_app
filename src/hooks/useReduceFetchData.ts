@@ -82,7 +82,9 @@ const useReduceFetchData = <
     fetchData().then((r) => {})
   }
 
-  const setData = (newData: T) => {
+  const setData =
+      (prev: ((prevData: T | null) => T)) => {
+    const newData = prev(state.data);
     dispatch({ type: SET_DATA, payload: newData })
   }
 

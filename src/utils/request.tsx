@@ -45,11 +45,13 @@ const request = async (url: string, { method = 'GET', params, body }: RequestOpt
 
 export default request
 
-export const get = async <T = any,>(url: string, params?: Record<string, any>): Promise<T> => {
+export const get =
+    async <T = any,>(url: string, params?: Record<string, any>): Promise<T> => {
   return request(url, { method: 'GET', params })
 }
 
-export const post = async <T = any,>(
+export const post =
+    async <T = any,>(
   url: string,
   body?: Record<string, any>,
   params?: Record<string, any>,
