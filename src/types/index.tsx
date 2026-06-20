@@ -46,7 +46,8 @@ export interface ArticleItem {
     id: number,
     createdAt: string,
     updatedAt: string,
-    title: string
+    title: string,
+    content: string,
 }
 export interface ArticleResponse {
     articles: ArticleItem[],

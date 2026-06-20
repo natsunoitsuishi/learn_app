@@ -19,7 +19,7 @@ export default function ArticlesIndex() {
     const { data, loading, error, refresh, onReload, onRefresh, setData } =
         useFetchData<ArticleResponse>('/articles')
     const articles = data?.articles ?? []
-    const { onEndReached } = useLoadMore('/articles', 'articles', setData)
+    const { onEndReached, loadMoreFooter } = useLoadMore('/articles', 'articles', setData)
 
     if (loading) {
         return <Loading />
@@ -51,35 +51,25 @@ export default function ArticlesIndex() {
     const renderSeparator = () => <View style={styles.separator} />
 
     return (
-        <>
-            <Stack.Screen
-                options={{
-                    title: '通知',
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                    },
-                    headerTitleAlign: 'center',
-                }}
+        <FlatList
+            style={styles.container}
+            contentContainerStyle={styles.contentContainerStyle}
+            data={articles}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+            ItemSeparatorComponent={renderSeparator}
+            ListEmptyComponent={<NoData/>}
+            refreshControl={
+            <RefreshControl
+                refreshing={refresh}
+                onRefresh={onRefresh}
+                tintColor={'#1f99b0'}
             />
-                <FlatList
-                    style={styles.container}
-                    contentContainerStyle={styles.contentContainerStyle}
-                    data={articles}
-                    keyExtractor={(item) => item.id.toString()}
-                    renderItem={renderItem}
-                    ItemSeparatorComponent={renderSeparator}
-                    ListEmptyComponent={<NoData/>}
-                    refreshControl={
-                    <RefreshControl
-                        refreshing={refresh}
-                        onRefresh={onRefresh}
-                        tintColor={'#1f99b0'}
-                    />
-                    }
-                    onEndReached={onEndReached}
-                    onEndReachedThreshold={0.1}
-                />
-        </>
+            }
+            onEndReached={onEndReached}
+            onEndReachedThreshold={0.1}
+            ListFooterComponent={loadMoreFooter}
+        />
     )
 }
 
