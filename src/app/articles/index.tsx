@@ -13,17 +13,13 @@ import NetworkError from "@/src/components/NetworkError";
 import {ArticleItem, ArticleResponse} from "@/src/types";
 import {Link, Stack} from "expo-router";
 import NoData from "@/src/components/NoData";
-import { get } from "@/src/utils/request";
-import { useState } from "react";
+import useLoadMore from "@/src/hooks/useLoadMore";
 
 export default function ArticlesIndex() {
     const { data, loading, error, refresh, onReload, onRefresh, setData } =
         useFetchData<ArticleResponse>('/articles')
-
     const articles = data?.articles ?? []
-    // const articles: ArrayLike<ArticleItem> | null | undefined = []
-
-    const [page, setPage] = useState(1);
+    const { onEndReached } = useLoadMore('/articles', 'articles', setData)
 
     if (loading) {
         return <Loading />
@@ -35,67 +31,55 @@ export default function ArticlesIndex() {
     
     const renderItem: ListRenderItem<ArticleItem> = ({ item }) => {
         return (
-            <>
-                <Stack.Screen
-                    options={{
-                        title: '通知',
-                        headerTitleStyle: {
-                            fontWeight: 'bold',
-                        },
-                        headerTitleAlign: 'center',
-                    }}
-                />
-                <Link asChild href={{ pathname: '/articles/[id]', params: {id: item.id} }}>
-                    <TouchableWithoutFeedback>
-                        <View style={styles.item}>
-                            <Image source={require('@/src/assets/images/list-light.png')} style={styles.image}/>
-                            <View style={styles.titleWrapper}>
-                                <Text style={styles.title} numberOfLines={2}>
-                                    {item.title}
-                                </Text>
-                                <Text style={styles.createdAt}>{item.createdAt}</Text>
-                            </View>
+            <Link asChild href={{ pathname: '/articles/[id]', params: {id: item.id} }}>
+                <TouchableWithoutFeedback>
+                    <View style={styles.item}>
+                        <Image source={require('@/src/assets/images/list-light.png')} style={styles.image}/>
+                        <View style={styles.titleWrapper}>
+                            <Text style={styles.title} numberOfLines={2}>
+                                {item.title}
+                            </Text>
+                            <Text style={styles.createdAt}>{item.createdAt}</Text>
                         </View>
-                    </TouchableWithoutFeedback>
-                </Link>
-            </>
+                    </View>
+                </TouchableWithoutFeedback>
+            </Link>
+
         )
     }
 
     const renderSeparator = () => <View style={styles.separator} />
 
-    const onEndReached = async () => {
-        const nextPage = page + 1;
-        setPage(nextPage);
-        const { data } = await get('/articles', {page: nextPage})
-
-        setData((prevData) => {
-            if (!prevData) return data
-            return {
-                articles: [...prevData.articles, ...data.articles],
-                pagination: data.pagination,
-            }
-        })
-    }
     return (
-        <FlatList 
-            style={styles.container}
-            contentContainerStyle={styles.contentContainerStyle}
-            data={articles}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={renderItem}
-            ItemSeparatorComponent={renderSeparator}
-            ListEmptyComponent={<NoData/>}
-            refreshControl={
-            <RefreshControl 
-                refreshing={refresh}
-                onRefresh={onRefresh}
-                tintColor={'#1f99b0'}
+        <>
+            <Stack.Screen
+                options={{
+                    title: '通知',
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                    },
+                    headerTitleAlign: 'center',
+                }}
             />
-            }
-            onEndReached={onEndReached}
-            onEndReachedThreshold={0.1}
-        />
+                <FlatList
+                    style={styles.container}
+                    contentContainerStyle={styles.contentContainerStyle}
+                    data={articles}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderItem}
+                    ItemSeparatorComponent={renderSeparator}
+                    ListEmptyComponent={<NoData/>}
+                    refreshControl={
+                    <RefreshControl
+                        refreshing={refresh}
+                        onRefresh={onRefresh}
+                        tintColor={'#1f99b0'}
+                    />
+                    }
+                    onEndReached={onEndReached}
+                    onEndReachedThreshold={0.1}
+                />
+        </>
     )
 }
 
@@ -105,8 +89,7 @@ const styles = StyleSheet.create({
     },
     contentContainerStyle: {
         flexGrow: 1,
-        backgroundColor: 'white',
-        justifyContent: 'center',
+        backgroundColor: 'white'
     },
     image: {
         height: 50,
