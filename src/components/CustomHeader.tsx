@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
     logoContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        paddingLeft: 60,
     },
     logoText: {
         fontSize: 20,

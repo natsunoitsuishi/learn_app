@@ -26,8 +26,7 @@ export default function RootLayout() {
         <Stack.Screen name="articles/index" options={{ ...customOption, title: '通知' }} />
         <Stack.Screen name="articles/[id]"  options={{ ...customOption, title: '通知详情' }} />
 
-        <Stack.Screen
-            name="setting/[uri]"
+        <Stack.Screen name="setting/[uri]"
             options={({ route }) => (
                 { ...customOption, title: (route.params as { title?: string })?.title }
             )}
@@ -37,3 +36,4 @@ export default function RootLayout() {
     </Stack>
   )
 }
+
