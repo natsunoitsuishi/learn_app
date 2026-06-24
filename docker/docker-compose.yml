@@ -8,7 +8,6 @@ services:
       - ./mysql/data:/var/lib/mysql
       - ./mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
       - ./mysql/logs:/var/log/mysql
-      - ./mysql/init:/docker-entrypoint-initdb.d
     ports:
       - "3306:3306"
     restart: unless-stopped
