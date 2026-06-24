@@ -43,3 +43,5 @@ app-example
 /android
 
 .env
+
+docker/mysql/data/*
